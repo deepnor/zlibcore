@@ -1,0 +1,8 @@
+{
+    "name": "zlibcore-example-json",
+    "version": "1.0.0",
+    "dependencies": {
+        "zlibcore": "file:../../"
+    },
+    "type": "module"
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ZlibCore Client-Side Workspace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <textarea id="inputData">Enter text to compress...</textarea>
+    <button id="compressBtn">Compress Payload</button>
+    <div id="outputConsole"></div>
+
+    <script type="module">
+        // Relative import for local verification. Use CDN in production.
+        import { ZlibCore } from '../../src/index.js'; 
+        // import { ZlibCore } from 'https://cdn.jsdelivr.net/gh/deepnor/zlibcore/src/index.js';
+
+        document.getElementById('compressBtn').addEventListener('click', () => {
+            const text = document.getElementById('inputData').value;
+            const encoder = new TextEncoder();
+            const rawBytes = encoder.encode(text);
+
+            try {
+                const compressed = ZlibCore.compress(rawBytes);
+                document.getElementById('outputConsole').innerText =
+                    `Success. Compressed ${rawBytes.length} bytes to ${compressed.length} bytes.`;
+            } catch (err) {
+                console.error("Compression Failure:", err);
+                document.getElementById('outputConsole').innerText = "Error: " + err.message;
+            }
+        });
+    </script>
+</body>
+</html>
